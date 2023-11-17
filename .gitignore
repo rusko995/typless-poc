@@ -1,0 +1,11 @@
+# Virtual environment
+.venv/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Sample for Typless response
+sample.json

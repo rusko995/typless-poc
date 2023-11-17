@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Typless Invoice Extraction</title>
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <p id="description">This is the input for the Typless invoice processor</p>
+        <div id="fileDropArea" class="drop-area" ondragover="handleDragOver(event)" ondrop="handleFileDrop(event)" onclick="handleClickToChoose()">
+            <span id="dropAreaText">Drag file here or click to choose</span>
+            <input type="file" id="fileInput" accept=".pdf, .png, .jpg, .tiff" onchange="handleFileSelection()" style="display: none;">
+        </div>
+        <p id="successfullySaved" style="display: none;">Successfully saved!</p>
+        <span id="imputProblem" style="display: none;">
+            <p>Supplier couldn't be obtained from your imput.</p>
+            <p>Make sure you trained the data for this supplier</p>
+            <p>inside Typless and that the quality of the uploaded file is ok.</p></span>
+        <p id="savingFailed" style="display: none;">There was a problem during saving. Please try again and contact support if doesn't work.</p>
+        <button id="processButton" onclick="processFile()" style="display: none;">PROCESS</button>
+        <div id="extractedFieldsDisplay"></div>
+        <button id="saveButton" onclick="saveData()" style="display: none;">SAVE</button>
+    </div>
+{% endblock %}
