@@ -21,7 +21,7 @@ function processFile() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Error saving data');
+                throw new Error('Error processing data');
             }
             return response.json();
         })
@@ -34,34 +34,31 @@ function processFile() {
             imputProblem.style.display = 'block';
             dropAreaText.textContent = 'Drag file here or click to choose';
             processButton.style.display = 'none';
+        })
+        .finally(() => {
+            processButton.disabled = false;
+            processButton.textContent = 'PROCESS';
         });
     } else {
         console.error('No file selected.');
         processButton.style.display = 'none';
         dropAreaText.textContent = 'Drag file here or click to choose';
+        processButton.disabled = false;
+        processButton.textContent = 'PROCESS';
     }
-
-    processButton.disabled = false;
-    processButton.textContent = 'PROCESS';
 }
 
 function displayExtractedFields(extractedFields) {
     const displayDiv = document.getElementById('extractedFieldsDisplay');
-    
-    // Clear previous content
     displayDiv.innerHTML = '';
-
-    // Create a list to display the extracted fields
     const ul = document.createElement('ul');
 
-    // Iterate through the extracted fields and create list items
     for (const field of extractedFields) {
         const li = document.createElement('li');
         li.textContent = `${field.name}: ${field.values[0].value}`;
         ul.appendChild(li);
     }
 
-    // Append the list to the display div
     displayDiv.appendChild(ul);
 }
 
@@ -75,7 +72,6 @@ function saveData() {
     const saveButton = document.getElementById('saveButton');
 
     if (extractedFields) {
-        // Send the extracted data to the server for saving
         fetch('/save', {
             method: 'POST',
             headers: {

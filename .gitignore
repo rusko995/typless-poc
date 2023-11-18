@@ -9,3 +9,9 @@ __pycache__/
 
 # Sample for Typless response
 sample.json
+
+# Config file
+app/config.py
+
+# Other
+.DS_Store
