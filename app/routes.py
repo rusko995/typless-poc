@@ -2,7 +2,6 @@ from datetime import datetime
 from flask import Blueprint, render_template, current_app, request, jsonify, Response, abort
 from app.errorHandlers import handle_generic_exception
 from app.models import db, InvoiceExtraction
-
 import requests
 import base64
 
@@ -57,19 +56,12 @@ def save_data() -> Response:
     data = request.json
     extracted_fields = data.get('extractedFields')
 
-    # As the number of fields is small, this won't take much time 
-    supplier_name = next((field['value'] for field in extracted_fields if field['name'] == 'supplier_name'), None)
-    issue_date = next((field['value'] for field in extracted_fields if field['name'] == 'issue_date'), None)
-    pay_due_date = next((field['value'] for field in extracted_fields if field['name'] == 'pay_due_date'), None)
-    total_amount = next((field['value'] for field in extracted_fields if field['name'] == 'total_amount'), None)
-    invoice_number = next((field['value'] for field in extracted_fields if field['name'] == 'invoice_number'), None)
-
     # Convert date and float values
-    supplier_name = supplier_name if supplier_name != "null" else None
-    issue_date = datetime.strptime(issue_date, '%Y-%m-%d') if issue_date != "null" else None
-    pay_due_date = datetime.strptime(pay_due_date, '%Y-%m-%d') if pay_due_date != "null" else None
-    total_amount = float(total_amount) if total_amount != "null" else None
-    invoice_number = invoice_number if invoice_number != "null" else None
+    supplier_name = extracted_fields['supplier_name'] if extracted_fields['supplier_name'] != "null" else None
+    issue_date = datetime.strptime(extracted_fields['issue_date'], '%Y-%m-%d') if extracted_fields['issue_date'] != "null" else None
+    pay_due_date = datetime.strptime(extracted_fields['pay_due_date'], '%Y-%m-%d') if extracted_fields['pay_due_date'] != "null" else None
+    total_amount = float(extracted_fields['total_amount']) if extracted_fields['total_amount'] != "null" else None
+    invoice_number = extracted_fields['invoice_number'] if extracted_fields['invoice_number'] != "null" else None
 
     # Save data to the database
     new_entry = InvoiceExtraction(

@@ -106,10 +106,14 @@ function saveData() {
 function getExtractedFields() {
     const ul = document.querySelector('#extractedFieldsDisplay ul');
     if (ul) {
-        const extractedFields = Array.from(ul.children).map(li => {
+        const extractedFields = {};
+        
+        // Iterate through the list items and populate the object
+        Array.from(ul.children).forEach(li => {
             const [name, value] = li.textContent.split(': ');
-            return { name, value };
+            extractedFields[name] = value;
         });
+
         return extractedFields;
     }
     return null;
