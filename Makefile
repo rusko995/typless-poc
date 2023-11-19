@@ -10,3 +10,7 @@ install:
 run:
 	. .$(VENV_DIR)/bin/activate; \
 	python3 run.py
+
+test:
+	. .$(VENV_DIR)/bin/activate; \
+	pytest
