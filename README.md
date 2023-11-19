@@ -14,10 +14,9 @@ These instructions will help you set up and run the project on your local machin
 
 ## Usage and instalation
 - Clone repository and enter the newly created folder:
-```
-git clone https://github.com/rusko995/typless-poc.git
-cd typless-poc
-```
+    - `git clone https://github.com/rusko995/typless-poc.git`
+    - `cd typless-poc`
+
 - Install necessary packages to the virtual environment: `make install`
 - Go to the **app/config.py** and add your Typless token in a format: `TYPLESS_API_KEY = "Token ########################"` (where you replace #characters with your token).
     - To obtain the API key visit the Settings page inside [Typless portal](https://app.typless.com)
@@ -25,6 +24,7 @@ cd typless-poc
 - By defaul the application is accessible at: http://127.0.0.1:5000 (as this is poc the debugging mode is on)
 - On the page you can upload the invoice file and then click "PROCESS". Program will return the extracted data which you can save to the local database with clicking the "SAVE" button. As written before - you must train the data fot the same supplier as you uploaded the invoice in the Typless portal first.
 - Accepted file formats are: `pdf`, `jpg`, `png`, `tiff`
+- Some testing invoices are available inside `tests/files` - you can play around with them. 
 
 ## Database
 There is a simple SQLite database incuded in the project (some data is already inside). If you want to have a fresh state just delete the `instance/database.db` file and re-run the project.

@@ -80,7 +80,7 @@ def test_save_data(client):
     assert response.status_code == 200
 
     with db.session.begin():
-        saved_entry = db.session.query(InvoiceExtraction).first()
+        saved_entry = db.session.query(InvoiceExtraction).order_by(InvoiceExtraction.id.desc()).first()
         assert saved_entry is not None
         assert saved_entry.supplier_name == 'Test Supplier'
         assert saved_entry.issue_date == datetime.strptime('2023-01-01', '%Y-%m-%d').date()
